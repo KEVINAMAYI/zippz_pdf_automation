@@ -1,0 +1,22 @@
+#p1 .image {
+  width: 100%; }
+
+#p1 #name {
+  position: absolute;
+  text-align: center;
+  color: #323086;
+  top: 151.68px;
+  width: 576px;
+  font-family: Lora;
+  font-style: normal;
+  font-size: 3.3rem;
+  font-weight: 600; }
+
+#p1 #created_label {
+  position: absolute;
+  text-align: center;
+  top: 230.4px;
+  width: 576px;
+  font-family: Roboto-Regular;
+  font-style: normal;
+  font-size: 0.8rem; }

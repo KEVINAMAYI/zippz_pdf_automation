@@ -1,0 +1,25 @@
+@import '../components/products/product-container';
+
+
+#p5 {
+  background-image: url("../images/background.png");
+  background-size: $A6-Width $A6-Height;
+  .main-block {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+  .instruction-container {
+    height: $A6-Height * 0.75 !important;
+    width: $A6-Width * 0.4 !important;
+  }
+
+  .instruction-item {
+    width: $A6-Width * 0.35 !important;
+  }
+}
+
+
+

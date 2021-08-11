@@ -1,0 +1,40 @@
+<div id="p3" class="container">
+    <div class="inner" >
+        <div class="header-block">
+         <h4 class="title">{{first}}’s Trial Pack Ingredients</h4>
+        </div>
+        <div class="charts-block">
+            <div class="charts">
+                 {% for issue in issues %}
+               {% with type=issue.type, product1=issue.product1, product2=issue.product2 %}
+                    {% include "components/charts-row.html" %}
+               {% endwith %}
+               {% endfor %}
+            </div>
+            <div class="legend">
+                <div class="list">
+                    <div class="title">Ingredient Legend</div>
+                    <div class="legend-items">
+                        <div class="column-1">
+                        {% for item in legend_column1 %}
+                          {% with color=item.color, name=item.name  %}
+                            {% include "components/ingredient-item.html" %}
+                       {% endwith %}
+                       {% endfor %}
+                        </div>
+                      <div class="column-2">
+                        {% for item in legend_column2 %}
+                          {% with color=item.color, name=item.name  %}
+                            {% include "components/ingredient-item.html" %}
+                       {% endwith %}
+                       {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="legend-note">To find out more about your ingredients and why these formulas were chosen for you,
+log in to your account at ZIPPZ.com.</div>
+    </div>
+</div>

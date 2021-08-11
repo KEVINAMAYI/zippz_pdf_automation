@@ -1,0 +1,24 @@
+@import '../../variables';
+
+.instruction-container {
+  display: flex;
+  width: $A6-Width * 0.44;
+  flex-direction: column;
+  border-radius: 5px;
+  background: rgb(230,240,240);
+
+
+
+
+
+  ul {
+    margin-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 6px;
+  }
+
+  ul li {
+    padding-bottom: 6px;
+    padding-left: 10px;
+  }
+}

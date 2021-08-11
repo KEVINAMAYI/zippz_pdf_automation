@@ -1,0 +1,37 @@
+@import '../components/instructions/instruction-container', '../components/instructions/instruction-item';
+
+
+#p4 {
+  background-image: url("../images/background.png");
+  background-size: $A6-Width $A6-Height;
+  .main-block {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-image img {
+    margin-left: 10px;
+    width: $A6-Width * 0.2 ;
+  }
+
+  .faq-bullets {
+    font-size: 0.65rem;
+    font-family: Roboto-Regular;
+    width: $A6-Width * 0.95 ;
+
+    ul {
+    padding: 0;
+    }
+  }
+
+
+}
+
+
+

@@ -1,0 +1,13 @@
+.instruction-container {
+  display: flex;
+  width: 253.44px;
+  flex-direction: column;
+  border-radius: 5px;
+  background: #e6f0f0; }
+  .instruction-container ul {
+    margin-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 6px; }
+  .instruction-container ul li {
+    padding-bottom: 6px;
+    padding-left: 10px; }

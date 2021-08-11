@@ -1,0 +1,22 @@
+<div class="product-container">
+    <div class="title-block">
+        <div class="image"><img src="../../images/attention.png"/></div>
+        <div class="title">Dosing FAQs</div>
+    </div>
+
+    <div class="bullets">
+        <ul>
+            {% for instruction in faq_instructions %}
+                 <li>{{instruction}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="product-images">
+              {% with type=issue.type, id=issue.product1.id %}
+                     {% include "components/products/product-item.html" %}
+               {% endwith %}
+               {% with type=issue.type, id=issue.product2.id %}
+                     {% include "components/products/product-item.html" %}
+               {% endwith %}
+    </div>
+</div>

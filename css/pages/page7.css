@@ -1,0 +1,11 @@
+#p7 {
+  background-image: url("../images/cards/page7.png");
+  background-size: 576px 384px; }
+  #p7 .placeholder-position1 {
+    position: absolute;
+    left: 34.56px;
+    top: 136.32px; }
+  #p7 .placeholder-position2 {
+    position: absolute;
+    left: 34.56px;
+    top: 226.944px; }

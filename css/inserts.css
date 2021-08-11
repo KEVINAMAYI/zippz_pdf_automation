@@ -1,0 +1,210 @@
+body {
+  margin: 0;
+  font-family: DIN Next LT Pro; }
+
+@font-face {
+  font-family: prestige-elite-std;
+  src: url(../fonts/PrestigeEliteStd.otf); }
+
+@font-face {
+  font-family: "DIN Next LT Pro";
+  src: url(../fonts/DINNextLTPro-MediumCond.otf); }
+
+.container {
+  width: 528px;
+  height: 816px; }
+
+.container-card {
+  width: 576px;
+  height: 384px; }
+
+.inner {
+  padding: 30px; }
+
+.header-block {
+  margin-top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
+
+.header-block > .title {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.2rem; }
+
+#p1 .header-block > .title {
+  color: #333385; }
+
+.header-img {
+  width: 18px;
+  height: 18px; }
+
+.label-information-title {
+  margin-top: 40px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: #333385; }
+
+.label-information-subtitle {
+  margin-bottom: 12px;
+  font-size: 0.6rem;
+  color: #4d4d4d; }
+
+.label-information-divider {
+  width: 30px;
+  margin-bottom: 20px;
+  border-bottom: 1.5px solid #333385; }
+
+.label-information-instruction {
+  color: #4d4d4d;
+  margin-bottom: 10px;
+  font-size: 0.6rem; }
+
+.label-information-instruction span {
+  font-weight: bold; }
+
+.ingredients-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
+
+.ingredients-block img {
+  width: 178.56px;
+  height: 172.8px; }
+
+.ingredients-block .note {
+  width: 115.2px;
+  font-size: 0.5rem;
+  color: #5f5f5f; }
+
+.ingredients-block .note p {
+  margin-top: 6px; }
+
+#p2 .header-block > .title {
+  margin-bottom: 40px; }
+
+.order-description {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 40px; }
+
+.order-description .col1 {
+  width: 25%;
+  font-weight: bold;
+  font-size: 0.7rem;
+  color: #333385; }
+
+.order-description .col2 {
+  font-weight: bold;
+  font-size: 0.7rem;
+  color: #585858; }
+
+.ordered-items {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 40px; }
+
+.ordered-items > .title {
+  color: #585858;
+  font-weight: bold;
+  font-size: 0.7rem;
+  width: 20%; }
+
+.ordered-items > .divider {
+  border-bottom: 1px solid #585858;
+  margin-bottom: 6.5px;
+  width: 70%; }
+
+.order-table {
+  display: flex;
+  flex-direction: column;
+  height: 98px; }
+
+.order-table .header {
+  font-size: 0.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #585858; }
+
+.order-table .row {
+  display: flex;
+  flex-direction: row;
+  width: 468px; }
+
+.order-table .item {
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-bottom: 7px;
+  color: #585858; }
+
+.order-table .quantity {
+  width: 20%; }
+
+.order-table .product {
+  width: 40%; }
+
+.order-table .item-no {
+  width: 20%; }
+
+.thankyou {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #333385;
+  font-weight: bold; }
+
+.mbottom5 {
+  margin-bottom: 5px !important; }
+
+.envelopes {
+  margin-top: 90px; }
+
+.envelopes .header-block {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  width: 70%; }
+
+.envelopes .text {
+  font-size: 0.5rem;
+  font-weight: 500;
+  width: 65%; }
+
+.envelopes .divider {
+  width: 30%;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #585858; }
+
+.envelopes img {
+  width: 468px; }
+
+.envelopes .item {
+  position: absolute;
+  font-weight: 500;
+  color: #585858;
+  font-size: 0.8rem; }
+
+.envelopes .product1 {
+  top: 514.08px;
+  left: 84.48px; }
+
+.envelopes .product2 {
+  top: 514.08px;
+  left: 258.72px; }
+
+.envelopes .product3 {
+  top: 598.56px;
+  left: 84.48px; }
+
+.envelopes .product4 {
+  top: 598.56px;
+  left: 258.72px; }
+
+.margin100 {
+  margin-top: 100px !important; }
+
+.customer-address {
+  text-transform: uppercase; }
+
+.city-state-post {
+  text-transform: uppercase; }

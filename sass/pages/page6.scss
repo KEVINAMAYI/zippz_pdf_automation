@@ -1,0 +1,45 @@
+@import '../variables';
+
+#p6 {
+  background-image: url("../images/cards/page6.png");
+  background-size: $A6-Width $A6-Height;
+
+  $placeholder_line1_top: $A6-Height * 0.355;
+  $placeholder_line2_top: $A6-Height * 0.591;
+  $placeholder_column1_left: $A6-Width * 0.06;
+  $placeholder_column2_left: $A6-Width * 0.505;
+
+
+  .placeholder-position1 {
+    position: absolute;
+    left: $placeholder_column1_left;
+    top: $placeholder_line1_top
+  }
+
+  .placeholder-position2 {
+    position: absolute;
+    left: $placeholder_column2_left;
+    top: $placeholder_line1_top
+  }
+
+  .placeholder-position3 {
+    position: absolute;
+    left: $placeholder_column2_left;
+    top: $placeholder_line2_top
+  }
+
+  .placeholder-position4 {
+    position: absolute;
+    left: $placeholder_column1_left;
+    top: $placeholder_line2_top
+  }
+
+
+
+}
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+#p2 .image {
+  width: 100%; }
+
+#p2 #ceo_sign {
+  position: absolute;
+  top: 295.68px;
+  left: 39.168px;
+  width: 144px; }
+
+#p2 #name {
+  position: absolute;
+  text-align: left;
+  color: #373737;
+  top: 76.8px;
+  left: 38.016px;
+  width: 576px;
+  font-family: Roboto-Regular;
+  font-size: 0.75rem; }
+
+#p2 .header-img {
+  width: 18px;
+  height: 18px; }

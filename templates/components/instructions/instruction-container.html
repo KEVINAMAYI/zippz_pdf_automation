@@ -1,0 +1,20 @@
+<div class="instruction-container">
+    <div class="title-block">
+         {% if type == "sleepz" %}
+                 <div class="image_moon"><img src="../../images/moon.png"/></div>
+                  <div class="title">SleepZ</div>
+        {% elif type == "calmz" %}
+                 <div class="image_leaf"><img src="../../images/leaf.png"/></div>
+                 <div class="title">CalmZ</div>
+        {% endif %}
+    </div>
+    <div class="bullets">
+        <ul>
+            {% for instruction in instructions %}
+                 {% with bold_text=instruction.bold_text, text=instruction.text %}
+              {% include "components/instructions/instruction-item.html" %}
+                  {% endwith %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>

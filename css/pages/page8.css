@@ -1,0 +1,57 @@
+#p8 {
+  background-image: url("../images/background.png");
+  background-size: 576px 384px; }
+  #p8 .main-block {
+    margin-top: 30px;
+    display: flex;
+    height: 249.6px; }
+  #p8 .delivery-info {
+    padding-left: 15px;
+    border-radius: 5px;
+    width: 259.2px;
+    background: #e6f0f0;
+    font-family: Roboto-Regular;
+    font-size: 0.8rem; }
+    #p8 .delivery-info .date {
+      margin-top: 20px; }
+    #p8 .delivery-info .date span, #p8 .delivery-info .order span {
+      color: #333385;
+      font-weight: bold; }
+    #p8 .delivery-info .address {
+      margin-top: 15px; }
+  #p8 .information {
+    padding-left: 15px;
+    width: 276.48px; }
+  #p8 .subtitle {
+    color: #379b87;
+    font-size: 0.8rem;
+    font-weight: bold;
+    font-family: Lora-Regular;
+    padding-top: 10px;
+    margin-bottom: 5px; }
+  #p8 .order-table {
+    margin-top: 15px;
+    width: 172.8px;
+    display: flex;
+    flex-direction: column; }
+  #p8 .row {
+    font-size: 0.7rem;
+    display: flex;
+    margin-bottom: 2px;
+    flex-direction: row; }
+  #p8 .quantity-header, #p8 .product-header {
+    font-family: Roboto-Regular;
+    color: #333385;
+    font-weight: bold; }
+  #p8 .quantity-header, #p8 .quantity-item {
+    width: 49%; }
+  #p8 .product-header, #p8 .product-item {
+    width: 49%; }
+  #p8 .qr-text {
+    margin-top: 20px;
+    font-family: Roboto-Regular;
+    font-size: 0.8rem; }
+  #p8 .qr-image {
+    margin-top: 20px; }
+    #p8 .qr-image img {
+      width: 120px; }

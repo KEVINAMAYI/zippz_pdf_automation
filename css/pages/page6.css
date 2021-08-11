@@ -1,0 +1,19 @@
+#p6 {
+  background-image: url("../images/cards/page6.png");
+  background-size: 576px 384px; }
+  #p6 .placeholder-position1 {
+    position: absolute;
+    left: 34.56px;
+    top: 136.32px; }
+  #p6 .placeholder-position2 {
+    position: absolute;
+    left: 290.88px;
+    top: 136.32px; }
+  #p6 .placeholder-position3 {
+    position: absolute;
+    left: 290.88px;
+    top: 226.944px; }
+  #p6 .placeholder-position4 {
+    position: absolute;
+    left: 34.56px;
+    top: 226.944px; }

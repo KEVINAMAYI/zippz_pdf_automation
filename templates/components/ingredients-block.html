@@ -1,0 +1,42 @@
+<div id="p1" class="container-card">
+    <div class="inner" >
+        {% if index == 1 %}
+        <div class="header-block">
+         <h4 class="title">ZIPPZ LABEL INFORMATION</h4>
+         <img class="header-img" src="../../images/logo_mini.png">
+        </div>
+         {% endif %}
+       <div class="label-information-title">{{type|upper}} LABEL INFORMATION</div>
+        <div class="label-information-subtitle">Dietary Supplement</div>
+        <div class="label-information-divider"></div>
+        {% if type == "sleepz" %}
+                {% set instruction = 'Take two softgels 30-60 minutes before going to bed.' %}
+        {% elif type == "calmz" %}
+                {% set instruction = 'Take two softgels up to three times a day, every 4-5 hours as needed.' %}
+        {% else %}
+                 {% set instruction = '' %}
+        {% endif %}
+        <div class="label-information-instruction"><span>SUGGESTED USE: </span>{{instruction}}</div>
+        <div class="ingredients-block">
+            <div class="product1">
+                 <img class="header-img" src="../../images/ingredients/{{type}}/{{product1['id']}}.png">
+            </div>
+            <div class="product2">
+                 <img class="header-img" src="../../images/ingredients/{{type}}/{{product2['id']}}.png">
+            </div>
+            <div class="note">
+                <p>Consult your healthcare provider prior to using this product if you are pregnant, nursing, or taking medication.</p>
+                <p>Store in a cool, dry place away from sunlight. Keep out of reach of children.</p>
+                <p>*These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
+                <p>** % Daily Values (DV) are based on a 2,000 calorie diet. Product contains less than 1% DV.</p>
+                <p>† Daily Value (DV) not established.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,9 @@
+<div class="title-block {{position}}">
+         {% if type == "sleepz" %}
+                 <div class="image_moon"><img src="../../images/moon.png"/></div>
+                  <div class="title">{{product['name']}}</div>
+        {% elif type == "calmz" %}
+                 <div class="image_leaf"><img src="../../images/leaf.png"/></div>
+                 <div class="title">{{product['name']}}</div>
+        {% endif %}
+</div>

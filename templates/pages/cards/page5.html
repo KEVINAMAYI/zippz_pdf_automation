@@ -1,0 +1,16 @@
+<div id="p5" class="container">
+    <div class="inner" >
+        <div class="header-block">
+         <h4 class="title">Trial Instructions</h4>
+        </div>
+        <div class="main-block">
+               {% with type=issue.type, instructions=issue.instructions %}
+                     {% include "components/instructions/instruction-container.html" %}
+               {% endwith %}
+               {% with issue=issue, faq_instructions=issue.faq_instructions %}
+                     {% include "components/products/product-container.html" %}
+               {% endwith %}
+
+        </div>
+    </div>
+</div>

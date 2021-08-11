@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/cards.css">
+</head>
+<body>
+{% include "pages/cards/page1.html" %}
+{% include "pages/cards/page2.html" %}
+{% include "pages/cards/page3.html" %}
+
+{% if issues|length == 2 %}
+    {% include "pages/cards/page4.html" %}
+{% else %}
+    {% with issue=issues[0] %}
+        {% include "pages/cards/page5.html" %}
+    {% endwith %}
+    {% endif %}
+
+{% if issues|length == 2 %}
+    {% include "pages/cards/page6.html" %}
+{% else %}
+
+{% with issue=issues[0] %}
+    {% include "pages/cards/page7.html" %}
+{% endwith %}
+{% endif %}
+{% include "pages/cards/page8.html" %}
+</body>
+</html>

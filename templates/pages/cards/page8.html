@@ -1,0 +1,66 @@
+<div id="p8" class="container">
+    <div class="inner" >
+        <div class="header-block">
+         <h4 class="title">Packing Slip and Label Information</h4>
+        </div>
+        <div class="main-block">
+            <div class="delivery-info">
+               <div class="subtitle">
+                     Packing Slip
+               </div>
+                <div class="date">
+                    <span>Date:</span> {{date_order}}
+                </div>
+                <div class="order">
+                    <span>Order:</span> #{{order_number}}
+                </div>
+                <div class="address">
+                    {{first}} {{last}} <br>
+                    {{street1}} {{street2}}<br>
+                    {{city}}, {{state}} {{zip}}
+                </div>
+                  <div class="order-table">
+                       <div class="row">
+                          <div class="quantity-header">
+                            Quantity
+                        </div>
+                        <div class="product-header">
+                            Product
+                        </div>
+                       </div>
+                      {% for issue in issues %}
+                          <div class="row">
+                              <div class="quantity-item">
+                                1
+                            </div>
+                            <div class="product-item">
+                                {{issue['product1']['name']}}
+                            </div>
+                          </div>
+                            <div class="row">
+                             <div class="quantity-item">
+                                1
+                            </div>
+                            <div class="product-item">
+                                {{issue['product2']['name']}}
+                            </div>
+                  </div>
+              {% endfor %}
+            </div>
+            </div>
+               <div class="information">
+                <div class="subtitle">
+                     Nutritional and Label Information
+                </div>
+                   <div class="qr-text">
+                       To see your full nutritional and supplement label information, go to zippz.com/labels or scan the QR code to the right with your phone’s camera.
+                   </div>
+                   <div class="qr-image">
+                        <img class="qr" src="../../images/qr_new.png">
+                   </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+</div>

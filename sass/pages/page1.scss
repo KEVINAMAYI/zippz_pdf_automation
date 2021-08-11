@@ -1,0 +1,35 @@
+@import '../variables';
+
+
+#p1 {
+
+  .image {
+    width: 100%;
+  }
+
+  #name {
+    position: absolute;
+    text-align: center;
+    color: rgb(50,48,134);
+    top: $A6-Height * (0.395);
+    width: $A6-Width;
+    font-family: Lora;
+    font-style: normal;
+    font-size: 3.3rem;
+    font-weight: 600;
+  }
+
+  #created_label {
+    position: absolute;
+    text-align: center;
+    top: $A6-Height * (0.6);
+    width: $A6-Width;
+    font-family: Roboto-Regular;
+    font-style: normal;
+    font-size: 0.8rem;
+  }
+
+}
+
+
+

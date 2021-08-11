@@ -1,0 +1,80 @@
+#p3 {
+  background-image: url("../images/background.png");
+  background-size: 576px 384px; }
+  #p3 .legend-note {
+    display: flex;
+    font-size: 0.7rem;
+    font-family: Roboto-Medium;
+    color: #323086; }
+  #p3 .charts-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 268.8px; }
+  #p3 .charts-block .charts {
+    width: 46%; }
+  #p3 .charts-block .charts-note {
+    margin-top: 20px;
+    font-size: 0.5rem;
+    color: #333385; }
+  #p3 .charts .chart-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; }
+  #p3 .charts-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px; }
+  #p3 .charts .chart-item img {
+    height: 84.32px;
+    width: 84.32px; }
+  #p3 .charts .chart-item .title {
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 0.8rem; }
+  #p3 .charts-block .legend {
+    border-radius: 5px;
+    height: 249.6px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 46%;
+    background: #e6f0f0; }
+  #p3 .legend img {
+    width: 100%; }
+  #p3 .legend .list {
+    width: 100%;
+    padding: 0 15px; }
+  #p3 .legend .list .title {
+    color: #379b87;
+    font-size: 0.8rem;
+    font-weight: bold;
+    font-family: Lora-Regular;
+    padding-top: 10px;
+    margin-bottom: 5px; }
+  #p3 .legend .list .legend-item {
+    margin-top: 4.5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; }
+  #p3 .legend-items {
+    display: flex; }
+  #p3 .legend-items .column-1 {
+    width: 47%; }
+  #p3 .legend-items .column-2 {
+    width: 47%; }
+  #p3 .legend-item {
+    display: flex; }
+  #p3 .legend-item .name {
+    text-transform: uppercase;
+    font-size: 0.5rem;
+    color: black;
+    font-weight: 500;
+    margin-left: 10px; }
+  #p3 .legend-item .line {
+    width: 12px;
+    border-radius: 10px;
+    height: 3px; }

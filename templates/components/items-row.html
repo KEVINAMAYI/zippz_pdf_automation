@@ -1,0 +1,32 @@
+<div class="items-row">
+            <h6 class="title">YOUR {{type|upper}} TRIAL</h6>
+            <div class="items-block">
+                <div class="item">
+                    <img src="../../images/bottles/{{type}}/{{product1['id']}}.png">
+                    <div class="description">
+                        <div class="title">{{product1['name']}}</div>
+                        <div class="bullets">
+                            <ul>
+                                {% for benefit in product1['benefits'] %}
+                                  <li>{{benefit}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="vs">VS</div>
+                <div class="item">
+                    <img src="../../images/bottles/{{type}}/{{product2['id']}}.png">
+                    <div class="description">
+                        <div class="title">{{product2['name']}}</div>
+                        <div class="bullets">
+                            <ul>
+                                {% for benefit in product2['benefits'] %}
+                                  <li>{{benefit}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>

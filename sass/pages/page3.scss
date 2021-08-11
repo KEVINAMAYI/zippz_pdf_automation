@@ -1,0 +1,134 @@
+@import '../variables';
+
+
+
+
+
+#p3 {
+  background-image: url("../images/background.png");
+  background-size: $A6-Width $A6-Height;
+
+
+  .legend-note {
+    display: flex;
+    font-size: 0.7rem;
+    font-family: Roboto-Medium;
+    color: rgb(50,48,134);
+  }
+
+  .charts-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: $A6-Height * 0.7;
+   }
+
+
+  .charts-block .charts {
+    width: 46%;
+  }
+
+  .charts-block .charts-note {
+    margin-top: 20px;
+    font-size: 0.5rem;
+    color: rgb(51,51,133);
+  }
+
+  .charts .chart-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  $chart-width: $A6-Height * 0.23;
+
+  .charts-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .charts .chart-item img {
+    height: $chart-width - 4;
+    width: $chart-width - 4;
+  }
+
+  .charts .chart-item .title {
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .charts-block .legend {
+    border-radius: 5px;
+    height: $A6-Height * 0.65 ;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 46%;
+    background: rgb(230,240,240);
+  }
+
+  .legend img {
+    width: 100%;
+  }
+
+  .legend .list {
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .legend .list .title {
+    color: rgb(55,155,135);
+    font-size: 0.8rem;
+    font-weight: bold;
+    font-family: Lora-Regular;
+    padding-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  .legend .list .legend-item {
+    margin-top: 4.5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .legend-items {
+    display: flex;
+    //flex-wrap: wrap;
+  }
+
+  .legend-items .column-1 {
+    width: 47%;
+  }
+
+  .legend-items .column-2 {
+    width: 47%;
+  }
+
+  .legend-item {
+
+    display: flex;
+  }
+
+  .legend-item .name {
+    text-transform: uppercase;
+    font-size: 0.5rem;
+    color: black;
+    font-weight: 500;
+    margin-left: 10px;
+  }
+
+  .legend-item .line {
+    width: 12px;
+    border-radius: 10px;
+    height: 3px;
+  }
+
+}
+
+

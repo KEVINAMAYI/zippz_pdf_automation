@@ -1,0 +1,39 @@
+.instruction-container {
+  display: flex;
+  width: 253.44px;
+  flex-direction: column;
+  border-radius: 5px;
+  background: #e6f0f0; }
+  .instruction-container ul {
+    margin-top: 10px;
+    padding-left: 15px;
+    padding-bottom: 6px; }
+  .instruction-container ul li {
+    padding-bottom: 6px;
+    padding-left: 10px; }
+
+.instruction-item {
+  width: 230.4px;
+  font-size: 0.8rem;
+  color: #333385; }
+
+#p4 {
+  background-image: url("../images/background.png");
+  background-size: 576px 384px; }
+  #p4 .main-block {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between; }
+  #p4 .footer-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+  #p4 .faq-image img {
+    margin-left: 10px;
+    width: 115.2px; }
+  #p4 .faq-bullets {
+    font-size: 0.65rem;
+    font-family: Roboto-Regular;
+    width: 547.2px; }
+    #p4 .faq-bullets ul {
+      padding: 0; }

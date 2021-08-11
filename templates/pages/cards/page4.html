@@ -1,0 +1,25 @@
+<div id="p4" class="container">
+    <div class="inner" >
+        <div class="header-block">
+         <h4 class="title">Trial Instructions</h4>
+        </div>
+        <div class="main-block">
+              {% for issue in issues %}
+               {% with type=issue.type, instructions=issue.instructions %}
+                     {% include "components/instructions/instruction-container.html" %}
+               {% endwith %}
+               {% endfor %}
+        </div>
+        <div class="footer-block">
+           <div class="faq-image">
+               <img src="../../images/faq.png">
+           </div>
+            <div class="faq-bullets">
+                   <ul>
+                       <li>SleepZ and CalmZ can be taken on the same days, but CalmZ should be taken 4+ hours before taking your nighttime SleepZ.</li>
+                       <li style="margin-top: 5px">It’s ok to skip some days, or not finish a bottle if it isn’t working for you. You can also take CalmZ multiple times per day.</li>
+                   </ul>
+           </div>
+        </div>
+    </div>
+</div>

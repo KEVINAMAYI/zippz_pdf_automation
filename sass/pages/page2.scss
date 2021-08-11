@@ -1,0 +1,31 @@
+@import '../variables';
+
+#p2 {
+  .image {
+    width: 100%;
+  }
+
+  #ceo_sign {
+    position: absolute;
+    top: $A6-Height * (0.77);
+    left: $A6-Width * (0.068);
+    width: $A6-Width * (0.25);
+  }
+
+  #name {
+    position: absolute;
+    text-align: left;
+    color: rgb(55, 55, 55);
+    top: $A6-Height * (0.2);
+    left: $A6-Width * (0.066);
+    width: $A6-Width;
+    font-family: Roboto-Regular;
+    font-size: 0.75rem;
+  }
+
+  .header-img {
+    width: 18px;
+    height: 18px;
+  }
+}
+

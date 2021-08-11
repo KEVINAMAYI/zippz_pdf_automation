@@ -1,0 +1,16 @@
+<div id="p6" class="container">
+    {% if issues|length ==  2 %}
+               {% with position="placeholder-position1",product=issues[0].product1, type=issues[0].type %}
+                    {% include "components/placeholder.html" %}
+                {% endwith %}
+                {% with position="placeholder-position4",product=issues[0].product2, type=issues[0].type %}
+                       {% include "components/placeholder.html" %}
+                {% endwith %}
+                {% with position="placeholder-position2",product=issues[1].product1, type=issues[1].type %}
+                    {% include "components/placeholder.html" %}
+                {% endwith %}
+                {% with position="placeholder-position3",product=issues[1].product2, type=issues[1].type %}
+                       {% include "components/placeholder.html" %}
+                {% endwith %}
+     {% endif %}
+</div>

@@ -1,0 +1,102 @@
+@import 'pages/page1', 'pages/page2', 'pages/page3', 'pages/page4', 'pages/page5', 'pages/page6', 'pages/page7','pages/page8';
+
+@font-face {
+  font-family: Lora-Regular;
+  src: url(../fonts/Lora-Regular.ttf)
+}
+
+@font-face {
+  font-family: Lora-Medium-Italic;
+  src: url(../fonts/Lora-MediumItalic.ttf)
+}
+
+@font-face {
+  font-family: Lora-Medium;
+  src: url(../fonts/Lora-Medium.ttf)
+}
+
+@font-face {
+  font-family: prestige-elite-std;
+  src: url(../fonts/PrestigeEliteStd.otf)
+}
+
+@font-face {
+  font-family: Roboto-Medium;
+  src: url(../fonts/Roboto-Medium.ttf)
+}
+
+@font-face {
+  font-family: Roboto-Regular;
+  src: url(../fonts/Roboto-Regular.ttf)
+}
+
+@font-face {
+  font-family: Lora;
+  src: url(../fonts/lora.ttf)
+}
+
+@font-face {
+  font-family: "DIN-Next-LT-Pro";
+  src: url(../fonts/DINNextLTPro-Medium.otf)
+}
+
+body {
+  margin: 0;
+  font-family: DIN-Next-LT-Pro;
+}
+
+.inner {
+  padding: 30px;
+}
+
+.container {
+  width: $A6-Width;
+  height: $A6-Height;
+}
+
+.header-block {
+  margin-top: 0;
+  display: flex;
+  font-style: normal;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-block > .title {
+  margin: 0;
+  font-size: 1.32rem;
+  font-family: Lora-Regular;
+  color: rgb(51, 51, 133);
+}
+
+.title-block {
+    height: 30px;
+    margin-top: 10px;
+    width: $A6-Width * 0.3;
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+  }
+
+  .title {
+    font-family: Lora-Medium;
+    margin-left: 7px;
+    color: rgb(55,155,135);
+    font-size: 1.1rem;
+  }
+
+.image_leaf img {
+  display: flex;
+  width: 17px;
+}
+
+.image_moon img {
+  display: flex;
+  width: 23px;
+}
+
+@page {
+  size: 576px 384px;
+  margin: 0
+}
