@@ -1,4 +1,3 @@
-import datetime
 import math
 import arrow
 import os
@@ -8,30 +7,23 @@ import logging
 import json
 import requests  # handing api requests
 import hyperlink  # formatting links
-
 from openpyxl import load_workbook
 from flask import Flask, request, abort
-
 from weasyprint import HTML, CSS
 from jinja2 import FileSystemLoader
 from jinja2 import Environment, select_autoescape
-
 from s3client import upload_files_to_aws, generate_presigned_urls
 
-app = Flask(__name__)
 
+app = Flask(__name__)
 TEMPLATE_NAME = "full"
 DELETE_HTML_AFTER_PROCESSING = False
 TEST_MODE = False
-
 api_url_for_creating_order = "https://ssapi.shipstation.com/orders/createorder"
 
-# sample pdf url
-pdf_url_generated = 'https://www.pdfdrive.com/braiding-sweetgrass-indigenous-wisdom-scientific-knowledge-and-the-teachings-of-plants-e60737077.html'
 
 SHIPMENTS_FILE = "./files/shipments.xlsx"
 INGREDIENTS_FILE_PATH = "./files/ingredients_colors.xlsx"
-
 PROCESSED_FILE_PATH = "./prod/shipments_processed.xlsx"
 
 MIN_ROW = 114
@@ -190,6 +182,7 @@ def parse_ingredients_legend():
     return items
 
 
+# returns a list of customer's data => A customer that has just made a purchase order
 def parse_shippments_items():
     list = []
     wb = load_workbook(filename=SHIPMENTS_FILE)
@@ -225,6 +218,7 @@ def parse_shippments_items():
     return list;
 
 
+# return specific products with their benefits
 def parse_ingredients():
     dict = {}
     wb = load_workbook(filename='files/ingredients.xlsx')
@@ -437,15 +431,39 @@ def generate_instructions(type, product1, product2):
     return instructions
 
 
+# function to shorten the AWS S3 url using rebrandly apis
+def shorten_url(pdf_url):
+    link_request = {
+        "destination": pdf_url,
+        "domain": {"fullName": "rebrand.ly"}
+    }
+
+    # header parameters
+    request_headers = {
+        "Content-type": "application/json",
+        "apikey": "bf0a166016c74d17afaffdd1656d9bef",
+        "workspace": "1562030ed25a4759b1922a5150e438ad"
+    }
+
+    # get resonse
+    r = requests.post("https://api.rebrandly.com/v1/links",
+                      data=json.dumps(link_request),
+                      headers=request_headers)
+
+    # response status and store url in a variable
+    if r.status_code == requests.codes.ok:
+        link = r.json()
+        return link["shortUrl"]
+
+
 # function for attaching pdf url to order
 def attach_pdf_url_to_order(order, order_pdf_url):
     # get the order pdf url passed through the function and format
     url = hyperlink.parse(order_pdf_url)
-    better_url = url.replace(scheme=u'https', port=443)
-    pdf_url = better_url.click(u'.')
+    pdf_url = url.replace(scheme=u'https', port=443)
 
     # attach the formatted pdf url along with custom text to the customfield1 index of the order
-    order["advancedOptions"]["customField1"] = "Pdf Url for Prescriptions and important note for the product " + pdf_url.to_text() + ' '
+    order["advancedOptions"]["customField1"] = "Pdf Url for Prescriptions and important note for the product "+ pdf_url.to_text() + ' '
 
     # return an order with pdf url at the customfield1 index
     return order
@@ -468,7 +486,7 @@ def create_update_order_in_shipstation(order_data):
 @app.route('/webhook', methods=['POST'])
 def get_order_data_from_wordpress():
     if request.method == 'POST':
-        print(request.json)
+
         # get order data as a string and convert to json
         order = request.json
         order_json = json.loads(order)
@@ -495,9 +513,10 @@ def get_order_data_from_wordpress():
         logging.info(signed_urls)
         write_signed_urls_to_shippments_file(signed_urls)
 
-        # call the functions for attaching pdf to order and send order details to shipstation
-        # order_with_pdf_url = attach_pdf_url_to_order(order_json, pdf_url_generated)
-        # create_update_order_in_shipstation(order_with_pdf_url)
+        # call the functions for shortening pdf_url, attaching pdf_url to order and send order details to shipstation
+        pdf_shortened_url = shorten_url(cards_signed_url)
+        order_with_pdf_url = attach_pdf_url_to_order(order_json, pdf_shortened_url)
+        create_update_order_in_shipstation(order_with_pdf_url)
         return 'success', 200
 
 
