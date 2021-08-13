@@ -215,6 +215,123 @@ def parse_shippments_items():
         }
         list.append(customer)
 
+        # create a dictionary to store order data for passing to ship station
+        parse_shippments_items.order_for_shipstation = {
+            "orderNumber": 5291,
+            "orderDate": "2015-06-29T08:46:27.0000000",
+            "paymentDate": "2015-06-29T08:46:27.0000000",
+            "orderStatus": "awaiting_shipment",
+            "customerId": None,
+            "customerUsername": "null",
+            "customerEmail": "null",
+            "billTo": {
+                "name": "Eleanor Duff Test",
+                "company": None,
+                "street1": None,
+                "street2": None,
+                "street3": None,
+                "city": None,
+                "state": None,
+                "postalCode": None,
+                "country": None,
+                "phone": None,
+                "residential": None
+            },
+            "shipTo": {
+                "name": "Jeffrey Welsh",
+                "company": "US Govt",
+                "street1": "9643 AMESTOY AVE",
+                "street2": None,
+                "street3": None,
+                "city": "NORTHRIDGE",
+                "state": "CA",
+                "postalCode": "91325-1917",
+                "country": "US",
+                "phone": "null",
+                "residential": True
+            },
+            "items": [
+                {
+                    "orderItemId": 43722973,
+                    "lineItemKey": None,
+                    "sku": "",
+                    "name": "Trial 4-Pack #150",
+                    "imageUrl": None,
+                    "weight": None,
+                    "quantity": 1,
+                    "unitPrice": 0.00,
+                    "taxAmount": None,
+                    "shippingAmount": None,
+                    "warehouseLocation": None,
+                    "options": [],
+                    "productId": None,
+                    "fulfillmentSku": None,
+                    "adjustment": False,
+                    "upc": None,
+                    "createDate": "2015-06-29T08:46:27.0000000",
+                    "modifyDate": "2015-06-29T08:46:27.0000000"
+                }
+            ],
+            "amountPaid": 0.0,
+            "taxAmount": 0.0,
+            "shippingAmount": 0.0,
+            "customerNotes": "Please ship as soon as possible!",
+            "internalNotes": None,
+            "gift": False,
+            "giftMessage": None,
+            "paymentMethod": None,
+            "requestedShippingService": None,
+            "carrierCode": "stamps_com",
+            "serviceCode": "usps_first_class_mail",
+            "packageCode": "package",
+            "confirmation": "delivery",
+            "shipDate": "2015-06-29",
+            "weight": {
+                "value": 15,
+                "units": "ounces",
+                "WeightUnits": 1
+            },
+            "dimensions": {
+                "units": "inches",
+                "length": 5.00,
+                "width": 7.00,
+                "height": 2.00
+            },
+            "insuranceOptions": {
+                "provider": None,
+                "insureShipment": False,
+                "insuredValue": 0.0
+            },
+            "internationalOptions": {
+                "contents": None,
+                "customsItems": None
+            },
+            "advancedOptions": {
+                "warehouseId": 638301,
+                "nonMachinable": False,
+                "saturdayDelivery": False,
+                "containsAlcohol": False,
+                "mergedOrSplit": False,
+                "mergedIds": [],
+                "parentId": None,
+                "storeId": 292578,
+                "customField1": None,
+                "customField2": None,
+                "customField3": None,
+                "source": None,
+                "billToParty": "my_other_account",
+                "billToAccount": None,
+                "billToPostalCode": None,
+                "billToCountryCode": None,
+                "billToMyOtherAccount": 182057
+            },
+            "tagIds": None,
+            "userId": "50ad70dd-4b1f-421a-bb4f-39c792d41690",
+            "externallyFulfilled": False,
+            "externallyFulfilledBy": None,
+            "labelMessages": None
+        }
+
     return list;
 
 
@@ -460,10 +577,9 @@ def shorten_url(pdf_url):
 def attach_pdf_url_to_order(order, order_pdf_url):
     # get the order pdf url passed through the function and format
     url = hyperlink.parse(order_pdf_url)
-    pdf_url = url.replace(scheme=u'https', port=443)
 
     # attach the formatted pdf url along with custom text to the customfield1 index of the order
-    order["advancedOptions"]["customField1"] = "Pdf Url for Prescriptions and important note for the product "+ pdf_url.to_text() + ' '
+    order["advancedOptions"]["customField1"] = "Pdf for Prescriptions and important note for the product https://"+ url.to_text() + ' '
 
     # return an order with pdf url at the customfield1 index
     return order
@@ -515,7 +631,7 @@ def get_order_data_from_wordpress():
 
         # call the functions for shortening pdf_url, attaching pdf_url to order and send order details to shipstation
         pdf_shortened_url = shorten_url(cards_signed_url)
-        order_with_pdf_url = attach_pdf_url_to_order(order_json, pdf_shortened_url)
+        order_with_pdf_url = attach_pdf_url_to_order(parse_shippments_items.order_for_shipstation, pdf_shortened_url)
         create_update_order_in_shipstation(order_with_pdf_url)
         return 'success', 200
 

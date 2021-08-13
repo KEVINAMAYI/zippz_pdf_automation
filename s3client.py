@@ -10,6 +10,7 @@ def generate_presigned_urls(uuid):
     try:
         logging.info("Start generating signed urls for uuid {}".format(uuid));
         s3 = boto3.client('s3')
+
         insert_file_url = s3.generate_presigned_url('get_object',
                                                     Params={'Bucket': BUCKET_NAME,
                                                             'Key': "{}/inserts.pdf".format(uuid)},
