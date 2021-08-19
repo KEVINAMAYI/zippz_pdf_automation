@@ -1,5 +1,5 @@
 import math
-import arrow
+import datetime
 import os
 import shutil
 import sass
@@ -8,19 +8,17 @@ import json
 import requests  # handing api requests
 import hyperlink  # formatting links
 from openpyxl import load_workbook
-from flask import Flask, request, abort
+from flask import Flask, request, abort, jsonify
 from weasyprint import HTML, CSS
 from jinja2 import FileSystemLoader
 from jinja2 import Environment, select_autoescape
 from s3client import upload_files_to_aws, generate_presigned_urls
-
 
 app = Flask(__name__)
 TEMPLATE_NAME = "full"
 DELETE_HTML_AFTER_PROCESSING = False
 TEST_MODE = False
 api_url_for_creating_order = "https://ssapi.shipstation.com/orders/createorder"
-
 
 SHIPMENTS_FILE = "./files/shipments.xlsx"
 INGREDIENTS_FILE_PATH = "./files/ingredients_colors.xlsx"
@@ -183,156 +181,193 @@ def parse_ingredients_legend():
 
 
 # returns a list of customer's data => A customer that has just made a purchase order
-def parse_shippments_items():
+def parse_shippments_items(data):
     list = []
-    wb = load_workbook(filename=SHIPMENTS_FILE)
-    sheet = wb['Orders']
-    for row in sheet.iter_rows(min_row=MIN_ROW, max_row=MAX_ROW):
-        if (row[1].value is None or row[8].value is None):
-            continue
+    packs = []
+    calmz = []
+    sleepz = []
 
-        # date_time_obj = f'{row[15].value:%m/%d/%Y}'
+    # format sleepz and calmz strings
+    def format_string(prodvalue):
+        if prodvalue is not None:
+            product = prodvalue.replace(" ", "")
+            spos = product.index('Z') + 1
+            product = product.replace(product[spos], "")
+            product = product.replace(product[spos - 1], "")
+        return product
 
-        customer = {
-            'first': row[0].value,
-            'last': row[1].value,
-            'email': row[3].value,
-            'street1': "" if row[4].value is None else row[4].value,
-            'street2': "" if row[5].value is None else row[5].value,
-            'city': "" if row[6].value is None else row[6].value,
-            'state': "" if row[7].value is None else row[7].value,
-            'zip': "" if row[8].value is None else row[8].value,
-            'uuid': row[9].value,
-            'pack': row[10].value,
-            'sleep1': row[11].value,
-            'sleep2': row[12].value,
-            'calm1': row[13].value,
-            'calm2': row[14].value,
-            'order_number': int(row[15].value),
-            'date_order': "" if row[16].value is None else f'{row[16].value:%m/%d/%Y}',
-            'date_title': "" if row[17].value is None else arrow.get(row[16].value).format('MMMM D, YYYY'),
+    for row in data['line_items']:
+        if 'Trial' in row['name']:
+            packs.append(row['name'])
+        if 'CalmZ' in row['name']:
+            calmz.append(row['name'])
+        if 'SleepZ' in row['name']:
+            sleepz.append(row['name'])
 
-        }
-        list.append(customer)
+    fname = data['billing']['first_name']
+    lname = data['billing']['last_name']
+    email = data['billing']['first_name']
+    street1 = data['billing']['address_1']
+    street2 = data['billing']['address_2']
+    city = data['billing']['city']
+    state = data['billing']['state']
+    zipcode = data['billing']['postcode']
+    pack = packs[0]
+    sleep1 = format_string(sleepz[0]) if 0 < len(sleepz) else None
+    sleep2 = format_string(sleepz[1]) if 1 < len(sleepz) else None
+    calm1 = format_string(calmz[0]) if 0 < len(calmz) else None
+    calm2 = format_string(calmz[1]) if 1 < len(calmz) else None
+    orderno = data['id']
+    lineitems = data['line_items']
+    customerid = data['customer_id']
+    orderkey = data['order_key']
+    createdate = data['date_created']
+    country = data['billing']['country']
+    date_modified = data['date_modified']
+    created = datetime.datetime.strptime(createdate, '%Y-%m-%dT%H:%M:%S')
+    orderdate = created.strftime("%m/%d/%Y")
+    datetitle = created.strftime('%B %d, %Y')
+    data = '{"action":"create", "id":"' + pack + '"}'
+    items = [{
+        "orderItemId": lineitems[0]['id'],
+        "lineItemKey": None,
+        "sku": lineitems[0]['sku'],
+        "name": lineitems[0]['name'],
+        "imageUrl": None,
+        "weight": None,
+        "quantity": lineitems[0]['quantity'],
+        "unitPrice": lineitems[0]['subtotal'],
+        "taxAmount": None,
+        "shippingAmount": None,
+        "warehouseLocation": None,
+        "options": [],
+        "productId": lineitems[0]['product_id'],
+        "fulfillmentSku": None,
+        "adjustment": False,
+        "upc": None,
+        "createDate": createdate,
+        "modifyDate": date_modified
+    }]
 
-        # create a dictionary to store order data for passing to ship station
-        parse_shippments_items.order_for_shipstation = {
-            "orderNumber": 5291,
-            "orderDate": "2015-06-29T08:46:27.0000000",
-            "paymentDate": "2015-06-29T08:46:27.0000000",
-            "orderStatus": "awaiting_shipment",
-            "customerId": None,
-            "customerUsername": "null",
-            "customerEmail": "null",
-            "billTo": {
-                "name": "Eleanor Duff Test",
-                "company": None,
-                "street1": None,
-                "street2": None,
-                "street3": None,
-                "city": None,
-                "state": None,
-                "postalCode": None,
-                "country": None,
-                "phone": None,
-                "residential": None
-            },
-            "shipTo": {
-                "name": "Jeffrey Welsh",
-                "company": "US Govt",
-                "street1": "9643 AMESTOY AVE",
-                "street2": None,
-                "street3": None,
-                "city": "NORTHRIDGE",
-                "state": "CA",
-                "postalCode": "91325-1917",
-                "country": "US",
-                "phone": "null",
-                "residential": True
-            },
-            "items": [
-                {
-                    "orderItemId": 43722973,
-                    "lineItemKey": None,
-                    "sku": "",
-                    "name": "Trial 4-Pack #150",
-                    "imageUrl": None,
-                    "weight": None,
-                    "quantity": 1,
-                    "unitPrice": 0.00,
-                    "taxAmount": None,
-                    "shippingAmount": None,
-                    "warehouseLocation": None,
-                    "options": [],
-                    "productId": None,
-                    "fulfillmentSku": None,
-                    "adjustment": False,
-                    "upc": None,
-                    "createDate": "2015-06-29T08:46:27.0000000",
-                    "modifyDate": "2015-06-29T08:46:27.0000000"
-                }
-            ],
-            "amountPaid": 0.0,
-            "taxAmount": 0.0,
-            "shippingAmount": 0.0,
-            "customerNotes": "Please ship as soon as possible!",
-            "internalNotes": None,
-            "gift": False,
-            "giftMessage": None,
-            "paymentMethod": None,
-            "requestedShippingService": None,
-            "carrierCode": "stamps_com",
-            "serviceCode": "usps_first_class_mail",
-            "packageCode": "package",
-            "confirmation": "delivery",
-            "shipDate": "2015-06-29",
-            "weight": {
-                "value": 15,
-                "units": "ounces",
-                "WeightUnits": 1
-            },
-            "dimensions": {
-                "units": "inches",
-                "length": 5.00,
-                "width": 7.00,
-                "height": 2.00
-            },
-            "insuranceOptions": {
-                "provider": None,
-                "insureShipment": False,
-                "insuredValue": 0.0
-            },
-            "internationalOptions": {
-                "contents": None,
-                "customsItems": None
-            },
-            "advancedOptions": {
-                "warehouseId": 638301,
-                "nonMachinable": False,
-                "saturdayDelivery": False,
-                "containsAlcohol": False,
-                "mergedOrSplit": False,
-                "mergedIds": [],
-                "parentId": None,
-                "storeId": 292578,
-                "customField1": None,
-                "customField2": None,
-                "customField3": None,
-                "source": None,
-                "billToParty": "my_other_account",
-                "billToAccount": None,
-                "billToPostalCode": None,
-                "billToCountryCode": None,
-                "billToMyOtherAccount": 182057
-            },
-            "tagIds": None,
-            "userId": "50ad70dd-4b1f-421a-bb4f-39c792d41690",
-            "externallyFulfilled": False,
-            "externallyFulfilledBy": None,
-            "labelMessages": None
-        }
+    customer = {
+        'first': fname,
+        'last': lname,
+        'email': email,
+        'street1': street1,
+        'street2': street2,
+        'city': city,
+        'state': state,
+        'zip': zipcode,
+        'pack': pack,
+        'sleep1': sleep1,
+        'sleep2': sleep2,
+        'calm1': calm1,
+        'calm2': calm2,
+        'uuid': orderno,
+        'order_number': orderno,
+        'date_order': orderdate,
+        'date_title': datetitle,
 
-    return list;
+    }
+    list.append(customer)
+
+    # create a dictionary to store order data for passing to ship station
+    parse_shippments_items.order_for_shipstation = {
+        "orderNumber": orderno,
+        "orderKey": orderno,
+        "orderDate": orderdate,
+        "paymentDate": orderdate,
+        "shipByDate": None,
+        "orderStatus": "awaiting_shipment",
+        "customerId": customerid,
+        "customerUsername": None,
+        "customerEmail": None,
+        "billTo": {
+            "name": fname + " " + lname,
+            "company": None,
+            "street1": street1,
+            "street2": street2,
+            "street3": None,
+            "city": city,
+            "state": state,
+            "postalCode": zipcode,
+            "country": country,
+            "phone": None,
+            "residential": None
+        },
+        "shipTo": {
+            "name": fname + " " + lname,
+            "company": None,
+            "street1": street1,
+            "street2": street2,
+            "street3": None,
+            "city": city,
+            "state": state,
+            "postalCode": zipcode,
+            "country": country,
+            "phone": None,
+            "residential": None
+        },
+        "items": items,
+        "amountPaid": 0.0,
+        "taxAmount": 0.0,
+        "shippingAmount": 0.0,
+        "customerNotes": "Please ship the product as as soon as possible!",
+        "internalNotes": None,
+        "gift": False,
+        "giftMessage": None,
+        "paymentMethod": None,
+        "requestedShippingService": None,
+        "carrierCode": "stamps_com",
+        "serviceCode": "usps_first_class_mail",
+        "packageCode": "package",
+        "confirmation": "delivery",
+        "shipDate": None,
+        "weight": {
+            "value": 15.00,
+            "units": "ounces",
+            "WeightUnits": 1
+        },
+        "dimensions": {
+            "units": "inches",
+            "length": 5.00,
+            "width": 7.00,
+            "height": 3.00
+        },
+        "insuranceOptions": {
+            "provider": None,
+            "insureShipment": False,
+            "insuredValue": 0.0
+        },
+        "internationalOptions": {
+            "contents": None,
+            "customsItems": None
+        },
+        "advancedOptions": {
+            "warehouseId": 638301,
+            "nonMachinable": False,
+            "saturdayDelivery": False,
+            "containsAlcohol": False,
+            "mergedOrSplit": False,
+            "mergedIds": [],
+            "parentId": None,
+            "storeId": 300914,
+            "customField1": None,
+            "customField2": None,
+            "customField3": None,
+            "source": "None",
+            "billToParty": None,
+            "billToAccount": None,
+            "billToPostalCode": None,
+            "billToCountryCode": None
+        },
+        "tagIds": None,
+        "userId": "50ad70dd-4b1f-421a-bb4f-39c792d41690",
+        "externallyFulfilled": False,
+        "externallyFulfilledBy": None,
+    }
+
+    return list
 
 
 # return specific products with their benefits
@@ -579,7 +614,7 @@ def attach_pdf_url_to_order(order, order_pdf_url):
     url = hyperlink.parse(order_pdf_url)
 
     # attach the formatted pdf url along with custom text to the customfield1 index of the order
-    order["advancedOptions"]["customField1"] = "Pdf for Prescriptions and important note for the product https://"+ url.to_text() + ' '
+    order["advancedOptions"]["customField1"] = "Testing update for pdf  https://" + url.to_text() + ' '
 
     # return an order with pdf url at the customfield1 index
     return order
@@ -599,19 +634,17 @@ def create_update_order_in_shipstation(order_data):
 
 
 # expose an endpoint for getting customer data from wordpress
-@app.route('/webhook', methods=['POST'])
+@app.route('/api/post/order', methods=["POST"])
 def get_order_data_from_wordpress():
     if request.method == 'POST':
 
         # get order data as a string and convert to json
         order = request.json
-        order_json = json.loads(order)
-
         delete_test_data()
         # compile_scss()
         ingredients = parse_ingredients()
         ingredients_legend = parse_ingredients_legend()
-        shippments = parse_shippments_items()
+        shippments = parse_shippments_items(order)
         signed_urls = {}
         for shippment in shippments:
             uuid = shippment['uuid']
