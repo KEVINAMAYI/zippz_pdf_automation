@@ -680,4 +680,4 @@ def get_order_data_from_wordpress():
 
 # runs main file
 if __name__ == '__main__':
-    application.run(host='127.0.0.1', port=80)
+    application.run()
