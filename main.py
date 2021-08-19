@@ -14,7 +14,7 @@ from jinja2 import FileSystemLoader
 from jinja2 import Environment, select_autoescape
 from s3client import upload_files_to_aws, generate_presigned_urls
 
-app = Flask(__name__)
+application = Flask(__name__)
 TEMPLATE_NAME = "full"
 DELETE_HTML_AFTER_PROCESSING = False
 TEST_MODE = False
@@ -88,12 +88,12 @@ def gen_pdf(template_name: object, template_data: object) -> object:
                  size: 576px 384px; 
                  margin: 0; 
              }
-                    
+
             @page:nth(2) { 
                 size: 576px 384px; 
                 margin: 0; 
                 }
-                
+
             @page:nth(3) { 
                 size: 528px 816px; 
                 margin: 0; 
@@ -106,7 +106,7 @@ def gen_pdf(template_name: object, template_data: object) -> object:
                              size: 576px 384px; 
                              margin: 0; 
                          }
-        
+
                         @page:nth(2) { 
                             size: 528px 816px; 
                             margin: 0; 
@@ -186,6 +186,7 @@ def parse_shippments_items(data):
     packs = []
     calmz = []
     sleepz = []
+    sku = []
 
     # format sleepz and calmz strings
     def format_string(prodvalue):
@@ -199,6 +200,7 @@ def parse_shippments_items(data):
     for row in data['line_items']:
         if 'Trial' in row['name']:
             packs.append(row['name'])
+            sku.append(row['sku'])
         if 'CalmZ' in row['name']:
             calmz.append(row['name'])
         if 'SleepZ' in row['name']:
@@ -231,7 +233,7 @@ def parse_shippments_items(data):
     items = [{
         "orderItemId": lineitems[0]['id'],
         "lineItemKey": None,
-        "sku": lineitems[0]['sku'],
+        "sku": sku[0],
         "name": lineitems[0]['name'],
         "imageUrl": None,
         "weight": None,
@@ -538,12 +540,12 @@ def generate_instructions(type, product1, product2):
     if (type == "calmz"):
         instruction1 = {
             "bold_text": "Start with {}".format(product1),
-            "text": "Take each day for 5 nights."
+            "text": "Take each day for 5 days."
         }
 
         instruction2 = {
             "bold_text": "Switch to {}".format(product2),
-            "text": "Take each day for 5 nights."
+            "text": "Take each day for 5 days."
         }
 
         instruction3 = {
@@ -634,12 +636,19 @@ def create_update_order_in_shipstation(order_data):
 
 
 # expose an endpoint for getting customer data from wordpress
-@app.route('/api/post/order', methods=["POST"])
+@application.route('/')
+def test():
+    return "python pdf generation app"
+
+
+# expose an endpoint for getting customer data from wordpress
+@application.route('/api/post/order', methods=["POST"])
 def get_order_data_from_wordpress():
     if request.method == 'POST':
 
         # get order data as a string and convert to json
         order = request.json
+        print(order)
         delete_test_data()
         # compile_scss()
         ingredients = parse_ingredients()
@@ -671,4 +680,4 @@ def get_order_data_from_wordpress():
 
 # runs main file
 if __name__ == '__main__':
-    app.run()
+    application.run()
